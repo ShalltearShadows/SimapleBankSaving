@@ -26,7 +26,7 @@ public class CardDAO {
         }
     }
 
-    //查询银行卡
+    //查询银行卡list
     public static Vector<CardBean> getCardBeanbyUid(String uid){
         Connection con = getConnection();
         Statement sql;

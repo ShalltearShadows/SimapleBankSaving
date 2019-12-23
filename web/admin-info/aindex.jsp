@@ -1,5 +1,12 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2019/12/23
+  Time: 18:51
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page  contentType="text/html; charset=UTF-8" language="java" %>
-<jsp:useBean id="user" class="data.UserBean" scope="session"/>
+<jsp:useBean id="admin" class="data.AdminBean" scope="session"/>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -30,14 +37,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/user-info/index.jsp"><i class="fa fa-zhuye">&nbsp;主页</i></a>
+            <a class="navbar-brand" href="aindex.jsp"><i class="fa fa-zhuye">&nbsp;主页</i></a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="${pageContext.request.contextPath}/login.jsp"><i class="fa fa-power-off"></i> 注销</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin.jsp"><i class="fa fa-power-off"></i> 注销</a></li>
             </ul>
-
         </div>
     </div>
 </nav>
@@ -54,36 +60,37 @@
                 <!-- 二级菜单 -->
                 <!-- 注意一级菜单中<a>标签内的href="#……"里面的内容要与二级菜单中<ul>标签内的id="……"里面的内容一致 -->
                 <ul id="userMeun" class="nav nav-list collapse menu-second">
-                    <li><a href="###" onclick="showAtRight('userinfomation.jsp')"><i class="fa fa-user"></i>查看个人信息</a></li>
+                    <li><a href="###" onclick="showAtRight('admininfomation.jsp')"><i class="fa fa-user"></i>查看个人信息</a></li>
                 </ul>
 
                 <li><a href="#productMeun" class="nav-header menu-first collapsed" data-toggle="collapse">
-                    <i class="fa fa-dollar"></i>&nbsp; 金额管理 </a>
+                    <i class="fa fa-users"></i>&nbsp;用户信息管理</a>
                 </li>
                 <ul id="productMeun" class="nav nav-list collapse menu-second">
-                    <li><a href="###" onclick="showAtRight('deposit.jsp')"><i class="fa fa-dollar"></i>存款</a></li>
-                    <li><a href="###" onclick="showAtRight('withdrawing.jsp')"><i class="fa fa-dollar"></i>取款</a></li>
-                    <li><a href="###" onclick="showAtRight('transferaccounts.jsp')"><i class="fa fa-dollar"></i>转账</a></li>
-                    <li><a href="###" onclick="showAtRight('amount.jsp')"><i class="fa fa-dollar"></i>余额</a></li>
 
+                    <li><a href="###" onclick="showAtRight('alterusername.jsp')"><i class="fa fa-address-card"></i>修改用户姓名</a></li>
+                    <li><a href="###" onclick="showAtRight('alteruserphone.jsp')"><i class="fa fa-address-card"></i>修改用户电话</a></li>
+                    <li><a href="###" onclick="showAtRight('alteruserpwd.jsp')"><i class="fa fa-address-card"></i>修改用户密码</a></li>
+                    <li><a href="###" onclick="showAtRight('adduser.jsp')"><i class="fa fa-address-card"></i>添加用户账号</a></li>
+                    <li><a href="###" onclick="showAtRight('deleteuser.jsp')"><i class="fa fa-address-card"></i>删除用户账号</a></li>
                 </ul>
 
                 <li><a href="#cardMeun" class="nav-header menu-first collapsed" data-toggle="collapse">
-                    <i class="fa fa-cog"></i>&nbsp; 银行卡管理 </a>
+                    <i class="fa fa-id-card"></i>&nbsp;银行卡管理</a>
                 </li>
                 <ul id="cardMeun" class="nav nav-list collapse menu-second">
-                    <li><a href="###" onclick="showAtRight('addcard.jsp')"><i class="fa fa-cog"></i>添加银行卡</a></li>
-                    <li><a href="###" onclick="showAtRight('deletecard.jsp')"><i class="fa fa-cog"></i>注销银行卡</a></li>
-<%--                    <li><a href="###" onclick="showAtRight('freeze.jsp')"><i class="fa fa-cog"></i>冻结银行卡</a></li>--%>
+                    <li><a href="###" onclick="showAtRight('addusercard.jsp')"><i class="fa fa-id-card"></i>添加用户银行卡</a></li>
+                    <li><a href="###" onclick="showAtRight('deleteusercard.jsp')"><i class="fa fa-id-card"></i>注销用户银行卡</a></li>
+                    <%--                    <li><a href="###" onclick="showAtRight('${pageContext.request.contextPath}/freeze.jsp')"><i class="fa fa-cog"></i>冻结银行卡</a></li>--%>
                 </ul>
 
                 <li><a href="#idMeun" class="nav-header menu-first collapsed" data-toggle="collapse">
-                    <i class="fa fa-cogs"></i>&nbsp; 账号管理 </a>
+                    <i class="fa fa-cogs"></i>&nbsp; 个人账号管理</a>
                 </li>
                 <ul id="idMeun" class="nav nav-list collapse menu-second">
-                    <li><a href="###" onclick="showAtRight('alteruname.jsp')"><i class="fa fa-cog"></i>修改姓名</a></li>
-                    <li><a href="###" onclick="showAtRight('alterphone.jsp')"><i class="fa fa-cog"></i>修改电话</a></li>
-                    <li><a href="###" onclick="showAtRight('alterpwd.jsp')"><i class="fa fa-cog"></i>修改密码</a></li>
+                    <li><a href="###" onclick="showAtRight('alteraname.jsp')"><i class="fa fa-cog"></i>修改姓名</a></li>
+                    <li><a href="###" onclick="showAtRight('alteraphone.jsp')"><i class="fa fa-cog"></i>修改电话</a></li>
+                    <li><a href="###" onclick="showAtRight('alterapwd.jsp')"><i class="fa fa-cog"></i>修改密码</a></li>
                     <li><a href="###" onclick="showAtRight('deleteself.jsp')"><i class="fa fa-cog"></i>注销账号</a></li>
                 </ul>
 
@@ -99,7 +106,7 @@
 
 <!-- 右侧内容展示==================================================   -->
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1 class="page-header"><i class="fa fa-cog fa-spin"></i>&nbsp;控制台<small>&nbsp;&nbsp;&nbsp;欢迎<jsp:getProperty name="user" property="uname"/>使用银行储蓄管理系统</small></h1>
+    <h1 class="page-header"><i class="fa fa-cog fa-spin"></i>&nbsp;控制台<small>&nbsp;&nbsp;&nbsp;欢迎<jsp:getProperty name="admin" property="aname"/>管理员使用银行储蓄管理系统</small></h1>
 
     <!-- 载入左侧菜单指向的jsp（或html等）页面内容 -->
     <div id="content">
@@ -341,6 +348,10 @@
 <%}else if (flag.equals("11")){%>
 <script>
     alert("ヾ(๑╹◡╹)ﾉ\"删除成功！！！");
+</script>
+<%}else if (flag.equals("12")){%>
+<script>
+    alert("(╯﹏╰)b账号错误！！！");
 </script>
 <%}%>
 

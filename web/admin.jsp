@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2019/12/20
-  Time: 17:39
+  Date: 2019/12/23
+  Time: 18:39
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -16,7 +16,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/img/ThreeExtras.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/img/Detector.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/img/RequestAnimationFrame.js"></script>
-    <title>The User Login</title>
+    <title>The Admin Login</title>
 </head>
 <body>
 
@@ -29,7 +29,7 @@
                 <div class="row100">
                     <div class="col">
                         <div class="inputBox">
-                            <input type="text" name="uid" required="required">
+                            <input type="text" name="aid" required="required">
                             <span class="text">Account</span>
                             <span class="line"></span>
                         </div>

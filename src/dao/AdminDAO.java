@@ -1,13 +1,11 @@
 package dao;
 
-import data.CardBean;
-import data.UserBean;
+import data.AdminBean;
+
 import java.sql.*;
-import java.util.Vector;
 
-public class UserDAO {
-
-    private UserDAO(){};
+public class AdminDAO {
+    private AdminDAO(){};
 
     //获取数据库连接
     public static Connection getConnection() {
@@ -30,13 +28,13 @@ public class UserDAO {
     }
 
     //验证登录
-    public static boolean chenkLoginByUidandUpwd(String uid,String upwd){
+    public static boolean chenkLoginByUidandUpwd(String aid,String apwd){
         Connection con = getConnection();
         Statement st;
         ResultSet rs;
 
         try {
-            String sql = "select * from user where uid = '" + uid + "' and upwd = '" + upwd + "'";
+            String sql = "select * from admin where aid = '" + aid + "' and apwd = '" + apwd + "'";
             st = con.createStatement();
             rs = st.executeQuery(sql);
             if (rs.next()){
@@ -49,52 +47,21 @@ public class UserDAO {
         return false;
     }
 
-    //查询用户
-    public static UserBean findUserByID(String num) {
+    //查询管理员
+    public static AdminBean findAdminByID(String num) {
         Connection con = getConnection();
-        UserBean user = new UserBean();
+        AdminBean admin = new AdminBean();
         Statement sql;
         try {
-            String condition = "select * from user where uid ='" + num + "'";
+            String condition = "select * from admin where aid ='" + num + "'";
             sql = con.createStatement();
             ResultSet rs = sql.executeQuery(condition);
 
             if (rs.next()) {
-                user.setUid(rs.getString("uid"));
-                user.setUname(rs.getString("uname"));
-                user.setUpwd(rs.getString("upwd"));
-                user.setPhone(rs.getString("phone"));
-            }
-
-            Vector<CardBean> cardBeanlist = CardDAO.getCardBeanbyUid(num);
-            cardBeanlist.setSize(2);
-
-            if (cardBeanlist.get(0)!=null){
-                String sq = "select * from binding where uid = '"+num+"' and cid1 = '"+cardBeanlist.get(0).getCid()+"'";
-                rs = sql.executeQuery(sq);
-                if (rs.next()) {
-                    user.setCardBean1(cardBeanlist.get(0));
-                }
-
-                sq = "select * from binding where uid = '"+num+"' and cid2 = '"+cardBeanlist.get(0).getCid()+"'";
-                rs = sql.executeQuery(sq);
-                if (rs.next()) {
-                    user.setCardBean2(cardBeanlist.get(0));
-                }
-            }
-            if (cardBeanlist.get(1)!=null){
-                String sq = "select * from binding where uid = '"+num+"' and cid1 = '"+cardBeanlist.get(1).getCid()+"'";
-                rs = sql.executeQuery(sq);
-                if (rs.next()) {
-                    user.setCardBean1(cardBeanlist.get(1));
-                }
-
-                sq = "select * from binding where uid = '"+num+"' and cid2 = '"+cardBeanlist.get(1).getCid()+"'";
-                rs = sql.executeQuery(sq);
-                if (rs.next()) {
-                    user.setCardBean2(cardBeanlist.get(1));
-                }
-
+                admin.setAid(rs.getString("aid"));
+                admin.setAname(rs.getString("aname"));
+                admin.setApwd(rs.getString("apwd"));
+                admin.setAphone(rs.getString("aphone"));
             }
 
             closeAll(con, null, rs);
@@ -103,15 +70,15 @@ public class UserDAO {
             e.printStackTrace();
         }
 
-        return user;
+        return admin;
     }
 
-    //注销用户
-    public static void deleteUserByUid(String id){
+    //注销管理员
+    public static void deleteAdminByUid(String aid){
         Connection con = getConnection();
         Statement  st;
         try {
-            String  SQL = "delete from user where uid='"+id+"'";
+            String  SQL = "delete from admin where aid='"+aid+"'";
             st =  con.createStatement();
             st.execute(SQL);
 
@@ -121,27 +88,24 @@ public class UserDAO {
 
     }
 
-    //添加用户
-    public static void addUserByBean (UserBean user){
+
+    //添加管理员
+    public static void addAdminByBean (AdminBean admin){
         Connection con = getConnection();
         PreparedStatement  st;
         try {
-            String uid = user.getUid();
-            String uname = user.getUname();
-            String upwd = user.getUpwd();
-            String phone = user.getPhone();
+            String aid = admin.getAid();
+            String aname = admin.getAname();
+            String apwd = admin.getApwd();
+            String aphone = admin.getAphone();
 
 
-            String  SQL1 = "insert into user values(?,?,?,?)";
+            String  SQL1 = "insert into admin values(?,?,?,?)";
             st = con.prepareStatement(SQL1);
-            st.setString(1,uid);
-            st.setString(2,uname);
-            st.setString(3,upwd);
-            st.setString(4,phone);
-
-            String SQL2 = "insert into binding(uid) values('"+user.getUid()+"')";
-            Statement stat = con.createStatement();
-            stat.execute(SQL2);
+            st.setString(1,aid);
+            st.setString(2,aname);
+            st.setString(3,apwd);
+            st.setString(4,aphone);
 
             st.execute();
 
@@ -152,13 +116,13 @@ public class UserDAO {
 
     }
 
-    //修改用户名
-    public static void alterUserUname(String uid,String name){
+    //修改姓名
+    public static void alterAdminAname(String aid,String aname){
         Connection con = getConnection();
         Statement st;
 
         try {
-            String sql = "update user set uname = '"+name+"' where uid = '"+uid+"' ";
+            String sql = "update admin set aname = '"+aname+"' where aid = '"+aid+"' ";
             st = con.createStatement();
             st.execute(sql);
             closeAll(con,null,null);
@@ -170,13 +134,13 @@ public class UserDAO {
         }
     }
 
-    //修改用户密码
-    public static void alterUserUpwd(String uid,String pwd){
+    //修改密码
+    public static void alterAdminApwd(String aid,String apwd){
         Connection con = getConnection();
         Statement st;
 
         try {
-            String sql = "update user set upwd = '"+pwd+"' where uid = '"+uid+"' ";
+            String sql = "update admin set apwd = '"+apwd+"' where uid = '"+aid+"' ";
             st = con.createStatement();
             st.execute(sql);
             closeAll(con,null,null);
@@ -188,13 +152,13 @@ public class UserDAO {
         }
     }
 
-    //修改用户电话
-    public static void alterUserPhone(String uid,String phone){
+    //修改电话
+    public static void alterAdminPhone(String aid,String aphone){
         Connection con = getConnection();
         Statement st;
 
         try {
-            String sql = "update user set phone = '"+phone+"' where uid = '"+uid+"' ";
+            String sql = "update admin set aphone = '"+aphone+"' where uid = '"+aid+"' ";
             st = con.createStatement();
             st.execute(sql);
             closeAll(con,null,null);
@@ -231,5 +195,4 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
-
 }

@@ -23,8 +23,6 @@
             <input type="submit" value="提交">
         </form>
     </div>
-
-
     <%
         String cid = request.getParameter("cid");
         CardBean c1 = user.getCardBean1();
@@ -43,7 +41,5 @@
             response.sendRedirect("index.jsp?flag=3");
         }
     %>
-
-
 </body>
 </html>
