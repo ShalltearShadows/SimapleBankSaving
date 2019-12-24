@@ -145,18 +145,18 @@ public class CardDAO {
     }
 
     //添加绑定信息
-    public static void addBindingByUidandCid(UserBean user, String cid){
+    public static void addBindingByUBandCid(UserBean user, String cid){
         Connection con = getConnection();
         Statement  st;
         try {
 
             st = con.createStatement();
 
-            if (user.getCardBean1()!=null) {
-                String  SQL = "update binding set cid2 = '"+cid+"' where uid ='"+user.getUid()+"' and cid2 is NULL ";
-                st.execute(SQL);
-            }else if (user.getCardBean2()!=null){
+            if (user.getCardBean1()==null) {
                 String  SQL = "update binding set cid1 = '"+cid+"' where uid ='"+user.getUid()+"' and cid1 is NULL ";
+                st.execute(SQL);
+            }else if (user.getCardBean2()==null){
+                String  SQL = "update binding set cid2 = '"+cid+"' where uid ='"+user.getUid()+"' and cid2 is NULL ";
                 st.execute(SQL);
             }
 

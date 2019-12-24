@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
@@ -43,7 +44,16 @@ public class RegisterServlet extends HttpServlet {
         }
         user.setUid(number);
         UserDAO.addUserByBean(user);
-        resp.sendRedirect("user-info/index.jsp?flag=10");
+        HttpSession session = req.getSession(true);
+        session.setAttribute("user",user);
+
+        String action = req.getHeader("referer");
+        String [] strs = action.split("/");
+        if (strs[4].equals("login.jsp"))
+            resp.sendRedirect("user-info/index.jsp?flag=10");//注册完成
+        else {
+            resp.sendRedirect("admin-info/aindex.jsp?flag=10");
+        }
     }
 
     @Override

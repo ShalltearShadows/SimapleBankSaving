@@ -24,6 +24,13 @@
             提示：每一位用户至多可拥有两张银行卡，请在申请银行卡之前检查自己的银行卡数量。
         </h3>
     <%
+        if (user.getCardBean1()!=null&&user.getCardBean1().getCid()==null){
+            user.setCardBean1(null);
+        }
+        if (user.getCardBean2()!=null&&user.getCardBean2().getCid()==null){
+            user.setCardBean2(null);
+        }
+
         CardBean card1 = user.getCardBean1();
         CardBean card2 = user.getCardBean2();
 
@@ -48,18 +55,18 @@
             int num = (int)(Math.random()*10);
             number+=""+num;
         }
-        CardBean c = new CardBean();
-        c.setCid(number);
-        c.setAmount("0");
+        CardBean newcard = new CardBean();
+        newcard.setCid(number);
+        newcard.setAmount("0");
         java.util.Date d = new java.util.Date();
         Date sqldate = new Date(d.getTime());
-        c.setDate(sqldate);
-        CardDAO.addCardbyCardBean(c);
-        CardDAO.addBindingByUidandCid(user,c.getCid());
+        newcard.setDate(sqldate);
+        CardDAO.addCardbyCardBean(newcard);
+        CardDAO.addBindingByUBandCid(user,newcard.getCid());
         if (user.getCardBean1()==null){
-            user.setCardBean1(c);
+            user.setCardBean1(newcard);
         }else if (user.getCardBean2()==null){
-            user.setCardBean2(c);
+            user.setCardBean2(newcard);
         }
 
         response.sendRedirect("index.jsp?flag=9");

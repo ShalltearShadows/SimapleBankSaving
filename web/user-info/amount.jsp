@@ -18,31 +18,42 @@
 <body>
 <div class="pane">
     <%
+        if (user.getCardBean1()!=null&&user.getCardBean1().getCid()==null){
+            user.setCardBean1(null);
+        }
+        if (user.getCardBean2()!=null&&user.getCardBean2().getCid()==null){
+            user.setCardBean2(null);
+        }
+
         CardBean card1 = user.getCardBean1();
         CardBean card2 = user.getCardBean2();
+
         if (card1!=null&&card2!=null){
     %>
-        <div><h3>银行卡1</h3>
+        <div><h4>银行卡1</h4>
                  卡号：<%=card1.getCid()%></div>
             <div>余额：<%=card1.getAmount()%></div>
-        <div><h3>银行卡2</h3>
+        <div><h4>银行卡2</h4>
                  卡号：<%=card2.getCid()%></div>
             <div>余额：<%=card2.getAmount()%></div>
     <%
         } else {
             if (card1!=null){
     %>
-                <div><h3>银行卡1</h3>
+                <div><h4>银行卡1</h4>
                          卡号：<%=card1.getCid()%></div>
                     <div>余额：<%=card1.getAmount()%></div>
     <%
             } else if (card2!=null){
     %>
-                <div><h3>银行卡2</h3>
+                <div><h4>银行卡2</h4>
                          卡号：<%=card2.getCid()%></div>
                     <div>余额：<%=card2.getAmount()%></div>
     <%
             }
+            else {%>
+                <p>您现在还没有银行卡，请先申请注册银行卡！</p>
+            <%}
         }
     %>
 

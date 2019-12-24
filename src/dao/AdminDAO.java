@@ -140,7 +140,7 @@ public class AdminDAO {
         Statement st;
 
         try {
-            String sql = "update admin set apwd = '"+apwd+"' where uid = '"+aid+"' ";
+            String sql = "update admin set apwd = '"+apwd+"' where aid = '"+aid+"' ";
             st = con.createStatement();
             st.execute(sql);
             closeAll(con,null,null);
@@ -158,7 +158,7 @@ public class AdminDAO {
         Statement st;
 
         try {
-            String sql = "update admin set aphone = '"+aphone+"' where uid = '"+aid+"' ";
+            String sql = "update admin set aphone = '"+aphone+"' where aid = '"+aid+"' ";
             st = con.createStatement();
             st.execute(sql);
             closeAll(con,null,null);

@@ -20,8 +20,8 @@
 <body>
 <div class="pane" id="alterCname">
     <form action="${pageContext.request.contextPath}/user-info/alteruname.jsp" method="post">
-        <p >原名称：<%=uname%></p>
-        <p >新名称：</p>
+        <p >原姓名：<%=uname%></p>
+        <p >新姓名：</p>
         <input name="uname" type="text" required/>
         <input class="sub" type="submit" />
     </form>

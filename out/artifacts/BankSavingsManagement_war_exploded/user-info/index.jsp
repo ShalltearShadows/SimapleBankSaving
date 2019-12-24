@@ -54,7 +54,7 @@
                 <!-- 二级菜单 -->
                 <!-- 注意一级菜单中<a>标签内的href="#……"里面的内容要与二级菜单中<ul>标签内的id="……"里面的内容一致 -->
                 <ul id="userMeun" class="nav nav-list collapse menu-second">
-                    <li><a href="###" onclick="showAtRight('${pageContext.request.contextPath}/user-info/userinfomation.jsp')"><i class="fa fa-user"></i>查看个人信息</a></li>
+                    <li><a href="###" onclick="showAtRight('userinfomation.jsp')"><i class="fa fa-user"></i>查看个人信息</a></li>
                 </ul>
 
                 <li><a href="#productMeun" class="nav-header menu-first collapsed" data-toggle="collapse">
@@ -74,17 +74,17 @@
                 <ul id="cardMeun" class="nav nav-list collapse menu-second">
                     <li><a href="###" onclick="showAtRight('addcard.jsp')"><i class="fa fa-cog"></i>添加银行卡</a></li>
                     <li><a href="###" onclick="showAtRight('deletecard.jsp')"><i class="fa fa-cog"></i>注销银行卡</a></li>
-<%--                    <li><a href="###" onclick="showAtRight('${pageContext.request.contextPath}/freeze.jsp')"><i class="fa fa-cog"></i>冻结银行卡</a></li>--%>
+<%--                    <li><a href="###" onclick="showAtRight('freeze.jsp')"><i class="fa fa-cog"></i>冻结银行卡</a></li>--%>
                 </ul>
 
                 <li><a href="#idMeun" class="nav-header menu-first collapsed" data-toggle="collapse">
                     <i class="fa fa-cogs"></i>&nbsp; 账号管理 </a>
                 </li>
                 <ul id="idMeun" class="nav nav-list collapse menu-second">
-                    <li><a href="###" onclick="showAtRight('${pageContext.request.contextPath}/user-info/alteruname.jsp')"><i class="fa fa-cog"></i>修改姓名</a></li>
-                    <li><a href="###" onclick="showAtRight('${pageContext.request.contextPath}/user-info/alterphone.jsp')"><i class="fa fa-cog"></i>修改电话</a></li>
-                    <li><a href="###" onclick="showAtRight('${pageContext.request.contextPath}/user-info/alterpwd.jsp')"><i class="fa fa-cog"></i>修改密码</a></li>
-
+                    <li><a href="###" onclick="showAtRight('alteruname.jsp')"><i class="fa fa-cog"></i>修改姓名</a></li>
+                    <li><a href="###" onclick="showAtRight('alterphone.jsp')"><i class="fa fa-cog"></i>修改电话</a></li>
+                    <li><a href="###" onclick="showAtRight('alterpwd.jsp')"><i class="fa fa-cog"></i>修改密码</a></li>
+                    <li><a href="###" onclick="showAtRight('deleteself.jsp')"><i class="fa fa-cog"></i>注销账号</a></li>
                 </ul>
 
                 <li><a href="${pageContext.request.contextPath}/login.jsp" class="nav-header menu-first collapsed">
@@ -104,7 +104,7 @@
     <!-- 载入左侧菜单指向的jsp（或html等）页面内容 -->
     <div id="content">
         <p>尊敬的用户您好！</p>
-        <p>欢迎进入河南工业大学学生信息管理系统</p>
+        <p>欢迎进入河南工业大学银行储蓄管理系统</p>
     </div>
 
 </div>
@@ -310,9 +310,6 @@
 <%}else if (flag.equals("4")){%>
 <script>
     alert("(╯﹏╰)b两次输入的密码不一致");
-    showAtRight('alterpwd.jsp');
-    var pwd= document.getElementById("#sss");
-    pwd.focus();
 </script>
 <%}else if (flag.equals("5")){%>
 <script>

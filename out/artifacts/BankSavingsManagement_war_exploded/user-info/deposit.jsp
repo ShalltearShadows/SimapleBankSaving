@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="dao.CardDAO" %>
+<%@ page import="data.CardBean" %>
 <jsp:useBean id="user" class="data.UserBean" scope="session"/>
 <html>
 <head>
@@ -29,6 +30,12 @@
     <%
         String card = request.getParameter("card");
         String amount = request.getParameter("amount");
+        if (user.getCardBean1()==null){
+            user.setCardBean1(new CardBean());
+        }
+        if (user.getCardBean2()==null){
+            user.setCardBean2(new CardBean());
+        }
 
         if (card==null||amount==null){
 

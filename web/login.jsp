@@ -25,7 +25,7 @@
     <div id="pane" class="flip">
         <div id="login" class="front">
             <form action="LoginServlet" onsubmit="return checkcode();" class="container">
-                <h2>Login</h2>
+                <h2>User Login</h2>
                 <div class="row100">
                     <div class="col">
                         <div class="inputBox">
@@ -63,7 +63,7 @@
 
         <div id="register" class="back">
             <form action="RegisterServlet"  class="container" method="post">
-                <h2>Register</h2>
+                <h2>User Register</h2>
                 <div class="row100">
                     <div class="col" style="top:15px;">
                         <div class="inputBox">

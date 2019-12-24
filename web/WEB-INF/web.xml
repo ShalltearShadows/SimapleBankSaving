@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <welcome-file-list>
-        <welcome-file>login.jsp</welcome-file>
+        <welcome-file>admin.jsp</welcome-file>
     </welcome-file-list>
 
 
@@ -33,6 +33,24 @@
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <servlet-class>controller.AdminLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <url-pattern>/AdminLoginServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminRegisterServlet</servlet-name>
+        <servlet-class>controller.AdminRegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminRegisterServlet</servlet-name>
+        <url-pattern>/AdminRegisterServlet</url-pattern>
     </servlet-mapping>
     
 </web-app>

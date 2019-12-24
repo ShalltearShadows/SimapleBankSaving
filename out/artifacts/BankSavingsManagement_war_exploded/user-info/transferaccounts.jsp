@@ -35,6 +35,13 @@
     String ru = request.getParameter("card2");
     String amount = request.getParameter("amount");
 
+    if (user.getCardBean1()==null){
+        user.setCardBean1(new CardBean());
+    }
+    if (user.getCardBean2()==null){
+        user.setCardBean2(new CardBean());
+    }
+
     if (chu==null||ru==null){
 
     }else if (ru!=null){
@@ -52,7 +59,6 @@
                 }else if (user.getCardBean1().getCid().equals(ru)){
                     user.getCardBean1().setAmount(""+b);
                 }
-
                 CardDAO.alterAmountByCid(ru,""+b);
                 response.sendRedirect("index.jsp?flag=7");//转账成功
             } else {

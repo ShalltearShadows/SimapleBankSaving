@@ -310,9 +310,6 @@
 <%}else if (flag.equals("4")){%>
 <script>
     alert("(╯﹏╰)b两次输入的密码不一致");
-    showAtRight('alterpwd.jsp');
-    var pwd= document.getElementById("#sss");
-    pwd.focus();
 </script>
 <%}else if (flag.equals("5")){%>
 <script>

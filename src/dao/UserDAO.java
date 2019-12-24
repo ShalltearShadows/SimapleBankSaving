@@ -138,12 +138,13 @@ public class UserDAO {
             st.setString(2,uname);
             st.setString(3,upwd);
             st.setString(4,phone);
+            st.execute();
 
             String SQL2 = "insert into binding(uid) values('"+user.getUid()+"')";
             Statement stat = con.createStatement();
             stat.execute(SQL2);
 
-            st.execute();
+
 
             closeAll(con,st,null);
         } catch (SQLException e) {
