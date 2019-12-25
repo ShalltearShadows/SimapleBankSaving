@@ -75,6 +75,14 @@
                     <li><a href="###" onclick="showAtRight('deleteuser.jsp')"><i class="fa fa-address-card"></i>删除用户账号</a></li>
                 </ul>
 
+                <li><a href="#log" class="nav-header menu-first collapsed" data-toggle="collapse">
+                    <i class="fa fa-file-text-o"></i>&nbsp; 用户日志记录</a>
+                </li>
+                <ul id="log" class="nav nav-list collapse menu-second">
+                    <li><a href="###" onclick="showAtRight('getuseralllog.jsp')"><i class="fa fa-search"></i>&nbsp;全部日志</a></li>
+                </ul>
+
+
                 <li><a href="#cardMeun" class="nav-header menu-first collapsed" data-toggle="collapse">
                     <i class="fa fa-id-card"></i>&nbsp;银行卡管理</a>
                 </li>
@@ -218,20 +226,26 @@
 </script>
 <script type="text/javascript">
     function ajaxfindall() {
+        var num = document.getElementById("cid").value;
         $.ajax({
             type: "post",
             dataType:"json",
-            url: "${pageContext.request.contextPath}/InfomationServlet",
+            data:"cid="+num,
+            url: "${pageContext.request.contextPath}/GetUserAllTheLogServlet",
             success: function (data) {
-                var html = "<tr><td>学号</td><td>姓名</td><td>高数</td><td>java</td><td>os</td></tr>";
+
+                if (data.flag=="3"){
+                    alert("银行卡错误！！！");
+                }
+
+                var html = "";
                 for (var i=0;i<data.length;i++){
-                    console.log(data[i].name+data[i].number);
                     html+="<tr>"+
-                        "<td>"+data[i].number+"</td>"+
-                        "<td>"+data[i].name+"</td>"+
-                        "<td>"+data[i].math+"</td>"+
-                        "<td>"+data[i].os+"</td>"+
-                        "<td>"+data[i].java+"</td>"+
+                        "<td>"+data[i].cid1+"</td>"+
+                        "<td>"+data[i].cid2+"</td>"+
+                        "<td>"+data[i].type+"</td>"+
+                        "<td>"+data[i].amount+"</td>"+
+                        "<td>"+data[i].time+"</td>"+
                         "</tr>";
                 }
                 $("#text").html(html);

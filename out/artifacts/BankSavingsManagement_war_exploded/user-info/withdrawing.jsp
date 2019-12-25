@@ -1,6 +1,9 @@
 <%@ page import="dao.UserDAO" %>
 <%@ page import="dao.CardDAO" %>
-<%@ page import="data.CardBean" %><%--
+<%@ page import="data.CardBean" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="data.LogBean" %>
+<%@ page import="dao.LogDAO" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2019/12/21
@@ -40,22 +43,34 @@
     if (card==null||amount==null){
 
     }else if (user.getCardBean1().getCid().equals(card)){
-        int m = Integer.parseInt(user.getCardBean1().getAmount());
+        int m = user.getCardBean1().getAmount();
         int n = m-Integer.parseInt(amount);
         if (n>0){
-            user.getCardBean1().setAmount(""+n);
-            CardDAO.alterAmountByCid(user.getCardBean1().getCid(),""+n);
+            user.getCardBean1().setAmount(n);
+            CardDAO.alterAmountByCid(user.getCardBean1().getCid(),n);
+
+            //添加日志
+            Date date = new Date();
+            LogBean lb = new LogBean(user.getCardBean1().getCid(),null,"取款",Integer.parseInt(amount),date);
+            LogDAO.addLogByLogBean(lb);
+
             response.sendRedirect("index.jsp?flag=5");
         }else {
             response.sendRedirect("index.jsp?flag=6");
         }
 
     }else if (user.getCardBean2().getCid().equals(card)){
-        int m = Integer.parseInt(user.getCardBean1().getAmount());
+        int m = user.getCardBean1().getAmount();
         int n = m-Integer.parseInt(amount);
         if (n>0){
-            user.getCardBean1().setAmount(""+n);
-            CardDAO.alterAmountByCid(user.getCardBean1().getCid(),""+n);
+            user.getCardBean1().setAmount(n);
+            CardDAO.alterAmountByCid(user.getCardBean1().getCid(),n);
+            //添加日志
+            Date date = new Date();
+            LogBean lb = new LogBean(user.getCardBean2().getCid(),null,"存款",Integer.parseInt(amount),date);
+            LogDAO.addLogByLogBean(lb);
+
+
             response.sendRedirect("index.jsp?flag=5");
         }else {
             response.sendRedirect("index.jsp?flag=6");

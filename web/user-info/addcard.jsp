@@ -36,7 +36,7 @@
 
         if (card1!=null&&card2!=null){
     %>
-        <p class="pane">尊敬的用户，对不起，您已经拥有两张银行卡，不可以进行申请操作！！！</p>
+        <h2 style="color: red">尊敬的用户，对不起，您已经拥有两张银行卡，不可以进行申请操作！！！</h2>
     <% } else {%>
             <p>请输入您的账号和密码，以便我们核对您的信息</p>
             <form class="pane" action="addcard.jsp" method="post">
@@ -57,7 +57,7 @@
         }
         CardBean newcard = new CardBean();
         newcard.setCid(number);
-        newcard.setAmount("0");
+        newcard.setAmount(0);
         java.util.Date d = new java.util.Date();
         Date sqldate = new Date(d.getTime());
         newcard.setDate(sqldate);

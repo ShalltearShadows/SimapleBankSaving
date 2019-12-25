@@ -8,6 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="dao.CardDAO" %>
 <%@ page import="data.CardBean" %>
+<%@ page import="data.LogBean" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="dao.LogDAO" %>
 <jsp:useBean id="user" class="data.UserBean" scope="session"/>
 <html>
 <head>
@@ -40,16 +43,25 @@
         if (card==null||amount==null){
 
         }else if (user.getCardBean1().getCid().equals(card)){
-            int m = Integer.parseInt(user.getCardBean1().getAmount());
+            int m = user.getCardBean1().getAmount();
             int n = Integer.parseInt(amount)+m;
-            user.getCardBean1().setAmount(""+n);
-            CardDAO.alterAmountByCid(user.getCardBean1().getCid(),""+n);
+            user.getCardBean1().setAmount(n);
+            CardDAO.alterAmountByCid(user.getCardBean1().getCid(),n);
+            Date date = new Date();
+            LogBean lb = new LogBean(user.getCardBean1().getCid(),null,"存款",Integer.parseInt(amount),date);
+            LogDAO.addLogByLogBean(lb);
+
             response.sendRedirect("index.jsp?flag=2");
         }else if (user.getCardBean2().getCid().equals(card)){
-            int m = Integer.parseInt(user.getCardBean2().getAmount());
+            int m = user.getCardBean2().getAmount();
             int n = Integer.parseInt(amount)+m;
-            user.getCardBean2().setAmount(""+n);
-            CardDAO.alterAmountByCid(user.getCardBean2().getCid(),""+n);
+            user.getCardBean2().setAmount(n);
+            CardDAO.alterAmountByCid(user.getCardBean2().getCid(),n);
+            //添加日志
+            Date date = new Date();
+            LogBean lb = new LogBean(user.getCardBean2().getCid(),null,"存款",Integer.parseInt(amount),date);
+            LogDAO.addLogByLogBean(lb);
+
             response.sendRedirect("index.jsp?flag=2");
         }else {
             response.sendRedirect("index.jsp?flag=3");

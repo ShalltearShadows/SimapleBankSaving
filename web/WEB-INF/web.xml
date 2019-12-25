@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <welcome-file-list>
-        <welcome-file>admin.jsp</welcome-file>
+        <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
 
 
@@ -51,6 +51,24 @@
     <servlet-mapping>
         <servlet-name>AdminRegisterServlet</servlet-name>
         <url-pattern>/AdminRegisterServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GetAllTheLogServlet</servlet-name>
+        <servlet-class>controller.GetAllTheLogServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetAllTheLogServlet</servlet-name>
+        <url-pattern>/GetAllTheLogServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetUserAllTheLogServlet</servlet-name>
+        <servlet-class>controller.GetUserAllTheLogServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetUserAllTheLogServlet</servlet-name>
+        <url-pattern>/GetUserAllTheLogServlet</url-pattern>
     </servlet-mapping>
     
 </web-app>

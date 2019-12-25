@@ -51,7 +51,7 @@
         }
         CardBean c = new CardBean();
         c.setCid(number);
-        c.setAmount("0");
+        c.setAmount(0);
         java.util.Date d = new java.util.Date();
         Date sqldate = new Date(d.getTime());
         c.setDate(sqldate);

@@ -9,6 +9,9 @@
 <%@ page import="data.CardBean" %>
 <%@ page import="dao.UserDAO" %>
 <%@ page import="dao.CardDAO" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="data.LogBean" %>
+<%@ page import="dao.LogDAO" %>
 <jsp:useBean id="user" class="data.UserBean" scope="session"/>
 <html>
 <head>
@@ -46,40 +49,54 @@
 
     }else if (ru!=null){
         if (user.getCardBean1().getCid().equals(chu)) {
-            int user_c1_amount = Integer.parseInt(user.getCardBean1().getAmount());
+            int user_c1_amount = user.getCardBean1().getAmount();
             int user_c1_after = user_c1_amount - Integer.parseInt(amount);
             if (user_c1_after > 0) {
-                user.getCardBean1().setAmount("" + user_c1_after);
-                CardDAO.alterAmountByCid(user.getCardBean1().getCid(),""+user_c1_after);
+                user.getCardBean1().setAmount(user_c1_after);
+                CardDAO.alterAmountByCid(user.getCardBean1().getCid(),user_c1_after);
                 CardBean cardBean = CardDAO.getCardByCid(ru);
-                int m = Integer.parseInt(cardBean.getAmount());
+                int m = cardBean.getAmount();
                 int b = m + Integer.parseInt(amount);
                 if (user.getCardBean2().getCid().equals(ru)){
-                    user.getCardBean2().setAmount(""+b);
+                    user.getCardBean2().setAmount(b);
                 }else if (user.getCardBean1().getCid().equals(ru)){
-                    user.getCardBean1().setAmount(""+b);
+                    user.getCardBean1().setAmount(b);
                 }
-                CardDAO.alterAmountByCid(ru,""+b);
+                CardDAO.alterAmountByCid(ru,b);
+                //添加日志
+                Date date = new Date();
+                LogBean lb1 = new LogBean(user.getCardBean1().getCid(),ru,"转出",Integer.parseInt(amount),date);
+                LogBean lb2 = new LogBean(ru,user.getCardBean1().getCid(),"转入",Integer.parseInt(amount),date);
+                LogDAO.addLogByLogBean(lb1);
+                LogDAO.addLogByLogBean(lb2);
+
                 response.sendRedirect("index.jsp?flag=7");//转账成功
             } else {
                 response.sendRedirect("index.jsp?flag=6");//余额不足
             }
         }else if (user.getCardBean2().getCid().equals(chu)){
-            int user_c2_amount = Integer.parseInt(user.getCardBean2().getAmount());
+            int user_c2_amount = user.getCardBean2().getAmount();
             int n = user_c2_amount - Integer.parseInt(amount);
             if (n > 0) {
-                user.getCardBean2().setAmount("" + n);
-                CardDAO.alterAmountByCid(user.getCardBean2().getCid(),""+n);
+                user.getCardBean2().setAmount(n);
+                CardDAO.alterAmountByCid(user.getCardBean2().getCid(),n);
                 CardBean cardBean = CardDAO.getCardByCid(ru);
-                int a = Integer.parseInt(cardBean.getAmount());
+                int a = cardBean.getAmount();
                 int b = a + Integer.parseInt(amount);
                 if (user.getCardBean1().getCid().equals(ru)){
-                    user.getCardBean1().setAmount(""+b);
+                    user.getCardBean1().setAmount(b);
                 }else if (user.getCardBean2().getCid().equals(ru)){
-                    user.getCardBean2().setAmount(""+b);
+                    user.getCardBean2().setAmount(b);
                 }
 
-                CardDAO.alterAmountByCid(ru,""+b);
+                CardDAO.alterAmountByCid(ru,b);
+
+                //添加日志
+                Date date = new Date();
+                LogBean lb1 = new LogBean(user.getCardBean2().getCid(),ru,"转出",Integer.parseInt(amount),date);
+                LogBean lb2 = new LogBean(ru,user.getCardBean2().getCid(),"转入",Integer.parseInt(amount),date);
+                LogDAO.addLogByLogBean(lb1);
+                LogDAO.addLogByLogBean(lb2);
 
                 response.sendRedirect("index.jsp?flag=7");//转账成功
             } else {

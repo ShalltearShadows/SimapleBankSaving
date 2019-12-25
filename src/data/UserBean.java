@@ -1,5 +1,7 @@
 package data;
 
+import java.util.Vector;
+
 public class UserBean {
     private String uid;
     private String uname;
@@ -7,6 +9,7 @@ public class UserBean {
     private String phone;
     private CardBean cardBean1;
     private CardBean cardBean2;
+    private Vector<CardBean> cardBeans;
 
     public String getUid() {
         return uid;
@@ -55,5 +58,13 @@ public class UserBean {
 
     public void setCardBean2(CardBean cardBean2) {
         this.cardBean2 = cardBean2;
+    }
+
+    public Vector<CardBean> getCardBeans() {
+        return cardBeans;
+    }
+
+    public void setCardBeans(Vector<CardBean> cardBeans) {
+        this.cardBeans = cardBeans;
     }
 }

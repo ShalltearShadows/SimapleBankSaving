@@ -42,7 +42,7 @@ public class CardDAO {
             while (rs.next()) {
                 CardBean c = new CardBean();
                 c.setCid(rs.getString("cid"));
-                c.setAmount(rs.getString("amount"));
+                c.setAmount(rs.getInt("amount"));
                 c.setDate(rs.getDate("date"));
                 cardBeansList.add(c);
             }
@@ -68,7 +68,7 @@ public class CardDAO {
             rs = st.executeQuery(sql);
             if (rs.next()){
                 cardBean.setCid(rs.getString("cid"));
-                cardBean.setAmount(rs.getString("amount"));
+                cardBean.setAmount(rs.getInt("amount"));
                 cardBean.setDate(rs.getDate("date"));
             }
 
@@ -79,12 +79,12 @@ public class CardDAO {
     }
 
     //修改银行卡金额
-    public static void alterAmountByCid(String cid,String amount){
+    public static void alterAmountByCid(String cid,int amount){
         Connection con = getConnection();
         Statement st;
 
         try {
-            String sql = "update card set amount = '"+amount+"' where cid = '"+cid+"' ";
+            String sql = "update card set amount = "+amount+" where cid = '"+cid+"'  " ;
             st = con.createStatement();
             st.execute(sql);
             closeAll(con,null,null);
@@ -123,7 +123,7 @@ public class CardDAO {
         PreparedStatement  st;
         try {
             String cid = card.getCid();
-            String amount = card.getAmount();
+            int amount = card.getAmount();
             Date date = card.getDate();
 
 
@@ -132,7 +132,7 @@ public class CardDAO {
             st = con.prepareStatement(SQL);
 
             st.setString(1,cid);
-            st.setString(2,amount);
+            st.setInt(2,amount);
             st.setDate(3,date);
 
             st.execute();
