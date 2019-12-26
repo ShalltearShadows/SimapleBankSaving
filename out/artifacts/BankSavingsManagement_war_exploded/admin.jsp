@@ -129,7 +129,7 @@
 
     function checkcode(){
         var icode = $("#validate").val();
-        if(icode!=Vcode){
+        if(icode.toLowerCase()!=Vcode.toLowerCase()){
             alert("The Validate Code ERROR!!!");
             createCode();
             return false;

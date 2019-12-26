@@ -1,5 +1,6 @@
 package controller;
 
+import dao.CardDAO;
 import dao.LogDAO;
 import data.LogBean;
 import data.UserBean;
@@ -13,9 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 
-public class GetAllTheLogServlet extends HttpServlet {
+public class SelectUserLogServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
@@ -23,21 +27,40 @@ public class GetAllTheLogServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         String cid = request.getParameter("cid");
+        String first = request.getParameter("first");
+        String second = request.getParameter("second");
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date datefirst = new Date();
+        Date datesecond = new Date();
+        try {
+            datefirst = simpleDateFormat.parse(first);
+            datesecond = simpleDateFormat.parse(second);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         HttpSession session = request.getSession(true);
         Vector<LogBean> logBeanList = new Vector<LogBean>();
         UserBean user = (UserBean) session.getAttribute("user");
         try {
-            if (user.getCardBean1().getCid().equals(cid)&&user.getCardBean1().getCid()!=null) {
+            if (datesecond.getTime() < datefirst.getTime()){
+                JSONObject json=new JSONObject();
+                json.put("flag", "1");
+                out.print(json);
+            }else if (CardDAO.getCardByCid(cid).getCid()!=null) {
                 logBeanList = LogDAO.getAllLogByCid(cid);
+                long secondtime = datesecond.getTime()+86400000L;
+                for (int i=0;i<logBeanList.size();i++){
+                    if (logBeanList.get(i).getDate().getTime()<datefirst.getTime()||
+                            logBeanList.get(i).getDate().getTime()>secondtime){
+                        logBeanList.removeElementAt(i);
+                        i-=1;
+                    }
+                }
                 JSONArray stu = JSONArray.fromObject(logBeanList);
                 out.print(stu.toString());
-            }else if (user.getCardBean2().getCid().equals(cid)&&user.getCardBean2().getCid()!=null){
-                logBeanList = LogDAO.getAllLogByCid(cid);
-                JSONArray stu = JSONArray.fromObject(logBeanList);
-                out.print(stu.toString());
-            }else {
-                //银行卡错误
+            }else  {
                 JSONObject json=new JSONObject();
                 json.put("flag", "3");
                 out.print(json);
@@ -46,14 +69,14 @@ public class GetAllTheLogServlet extends HttpServlet {
 
         }
 
+
+
         out.flush();
         out.close();
-
-
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req,resp);
+        doPost(req, resp);
     }
 }

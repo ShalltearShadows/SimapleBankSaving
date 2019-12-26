@@ -70,5 +70,15 @@
         <servlet-name>GetUserAllTheLogServlet</servlet-name>
         <url-pattern>/GetUserAllTheLogServlet</url-pattern>
     </servlet-mapping>
-    
+
+    <servlet>
+        <servlet-name>SelectDateLogServlet</servlet-name>
+        <servlet-class>controller.SelectDateLogServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SelectDateLogServlet</servlet-name>
+        <url-pattern>/SelectDateLogServlet</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
